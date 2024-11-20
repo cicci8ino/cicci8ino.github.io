@@ -1,0 +1,31 @@
+baseURL: ""
+languageCode: en-us
+theme: hermit-v2
+title: cicci8ino's blog
+params:
+  author:
+    name: Andrea Martino
+  description: experimenting with stuff
+  dateform: "Jan 2, 2006"
+  dateformShort: "Jan 2"
+  dateformNum: "2006-01-02"
+  dateformNumTime: "2006-01-02 15:04 -0700"
+
+  assets:
+    disableHLJS: true
+  homeInfoParams:
+    Title: henlo
+    Content: nothing to see here, I guess
+markup:
+  highlight:
+    # anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    # noClasses: false
+    style: catppuccin-frappe
+menu:
+  main:
+    - name: "posts"
+      url: "posts/"
+      weight: 10
