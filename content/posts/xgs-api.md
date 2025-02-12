@@ -9,20 +9,20 @@ tags: ["switch", "zyxel", "network", "rabbithole", "xgs1210"]
 I'm not a developer nor a web app expert. Please, forgive me for my train of thought
 {{< /admonition >}}
 
-Some months ago I bought a nice Zyxel XGS1210 managed switch for 130-ish euros on Amazon Marketplace. 2x10G SFPs, 2x2.5G RJ45, 8x1G RJ45. Not to bad.
+Some months ago, I bought a nice Zyxel XGS1210 managed switch for 130-ish euros on Amazon Marketplace. 2x10G SFPs, 2x2.5G RJ45, 8x1G RJ45. Not too bad.
 
-I always wanted to manage it via Terraform/Tofu, as I'm doing with my opnsense install. Unfortunately there is no Terraform provider already available and no public documentation/API, so I thought 
-> It would make perfectly sense to lost hours in reverse engineering the web page to create a new VLAN every once in a while, right?
+I always wanted to manage it via Terraform/Tofu, as I'm doing with my opnsense install. Unfortunately, there is no Terraform provider already available and no public documentation/API, so I thought 
+> It would make sense to lose hours in reverse engineering the web page to create a new VLAN every once in a while, right?
 
 Nope, it probably didn't. Follow me in this rabbit hole.
 
 # Login mechanism for http
 
-First, let's have a look at how the login mechanism works. If you go to the switch IP's, you are greated by a beautiful login page straight from the 90s.
+First, let's examine how the login mechanism works. If you go to the switch IP, you are greeted by a beautiful login page straight from the 90s.
 
 ![Login page](/images/xgs-api/zyxel.png)
 
-There's an interesting get request executed here
+There's an interesting get request executed here:
 
 ```url
 cgi/get.cgi?cmd=home_loginInfo&dummy=1730661645538&bj4=46f21041e4c399c1cd141211b4b4f547
@@ -39,7 +39,7 @@ That gives back this JSON data
 	"xsrfToken":	""
 }
 ```
-Let's first focus on the request URL. `cmd` looks like a command, `dummy` looks like a timestamp. What about `bj4`? In `js/fileload.js`, the code would look something like this
+Let's first focus on the request URL. `cmd` looks like a command, `dummy` looks like a timestamp. What about `bj4`? In `js/fileload.js`, the code would look something like this:
 
 ```js
 url = url + '&bj4=' + md5(url.split('?')[1]);
@@ -94,7 +94,7 @@ That's a strange JSON but ok. It seems we have 4 parameters stored in there some
 
 I absolutely have no idea of what `_ds` and `_de` mean, but they are always `1`, so I'm going to hardcode them and I'm going to send them in the exact order (yes, it was needed, wasted some time on this). On the other hand, `password` and `xsrfToken` are much more interesting.
 
-Looking at `login.html`, we can see that `xsrfToken` is generated creating a 16 chars string by picking random base16 digit. Let's enerate a random token while initizing the client. Not sure why it's the client that is generating the CSRF token though...
+Looking at `login.html`, we can see that `xsrfToken` is generated, creating a 16 chars string by picking random hex digit. Let's generate a random token while initializing the client. I'm not sure why it's the client that is generating the CSRF token, though...
 
 `password` is being generated in the `clickLogin()` function in `login.html`, using functions stored in `crypt/rsa.js` file. This file seems to be coming from [here](https://github.com/creationix/jsbn/blob/master/README.md). 
 
@@ -109,9 +109,9 @@ First, a public RSA key is created from `modulus` and the hardcoded exponent.
 The password is then encrypted with that key. More specifically, the encrypt() function will pad the string first and then encrypt the data using [PKCS1 v1.5](https://en.wikipedia.org/wiki/PKCS_1)
 
 {{< admonition warning "PKCS1 v1.5" >}}
-PKCS1 v1.5 is vulnerable to [Padding Oracle Attack](https://en.wikipedia.org/wiki/Padding_oracle_attack). An attacker reading the encrypted password might be able to decrypt it if the switch is giving explicit feedback when an encrypted password with invalid padding is received. Additional information can be found [stackexchange](https://crypto.stackexchange.com/questions/12688/can-you-explain-bleichenbachers-cca-attack-on-pkcs1-v1-5).
+PKCS1 v1.5 is vulnerable to [Padding Oracle Attack](https://en.wikipedia.org/wiki/Padding_oracle_attack). An attacker reading the encrypted password might be able to decrypt it if the switch gives explicit feedback when an encrypted password with invalid padding is received. Additional information can be found [stackexchange](https://crypto.stackexchange.com/questions/12688/can-you-explain-bleichenbachers-cca-attack-on-pkcs1-v1-5).
 
-Btw, it's already on a clear text channel, who cares.
+Btw, it's already on a clear text channel, who cares?
 {{< /admonition >}}
 
 ```js
@@ -140,7 +140,7 @@ The browser will then use the `authId` to POST the following request to `/cgi/se
 }
 ```
 
-Bingo, we know have a session cookie, `HTTP_SESSID` we can use from now on for every requests. 
+Bingo, we now have a session cookie, `HTTP_SESSID` we can use from now on for every request. 
 
 {{< admonition warning " xsrfToken" >}}
 It may seem that the `xsrfToken` is hardcoded somehow. In reality, the `xsrfToken` is received as part of `GET` request response. If a `POST` request is submitted without an updated `xsrfToken`, the webserver will return 200 status code but no action will be performed.
