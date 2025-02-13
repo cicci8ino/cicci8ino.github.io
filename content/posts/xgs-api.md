@@ -1,7 +1,7 @@
 ---
 date: '2024-11-06T20:07:15+01:00'
 draft: false
-title: 'Reversing the login mechanism of a cheap Zyxel managed network'
+title: 'Reversing the login mechanism of a cheap Zyxel managed switch'
 tags: ["switch", "zyxel", "network", "rabbithole", "xgs1210"]
 ---
 
