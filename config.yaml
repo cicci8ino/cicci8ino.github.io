@@ -16,6 +16,13 @@ params:
   homeInfoParams:
     Title: henlo
     Content: nothing to see here, I guess
+  homeSubtitle: Building useless stuff
+  shareSocial: true
+  socialLinks:
+    - name: "github"
+      url: "https://github.com/cicci8ino"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/andrea-martino-56480066/"
 markup:
   highlight:
     # anchorLineNos: true
