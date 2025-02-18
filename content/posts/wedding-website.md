@@ -221,7 +221,7 @@ At this stage, Odyssey is ready to reconcile stuff. It now has:
 - `cert-manager`, that will manage ingress certificate generation from now on.
 
 {{< admonition tip "chicken-and-egg" >}}
-There's a nice chicken-and-egg scenario here, as Flux is installed after several objects have been created "manually". So how cam Flux reconcile these objects? I would suggest you have a look at the wonderful blog post from my colleague Fabian [HERE](https://blog.kammel.dev/post/k8s_home_lab_2025_01/).
+There's a nice chicken-and-egg scenario here, as Flux is installed after several objects have been created "manually". So how can Flux reconcile these objects? I would suggest you have a look at the wonderful blog post from my colleague Fabian [HERE](https://blog.kammel.dev/post/k8s_home_lab_2025_01/).
 {{< /admonition >}}
 
 In the next episode, we are going to take a look at how I've structured my GitOps repository and how I'm deploying the website in the cluster.
