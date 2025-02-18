@@ -1,5 +1,5 @@
 ---
-date: '2025-02-18T17:33:15+01:00'
+date: '2025-02-18T10:48:15+01:00'
 draft: false
 title: 'A wedding website powered by Kubernetes, Flux, and GitHub Actions - Part 1'
 tags: ["kubernetes", "gitops", "flux", "k8s", "terraform", "ansible", "iac"]
