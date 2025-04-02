@@ -213,7 +213,7 @@ patches:
       name: flux
       namespace: flux-system
 ```
-The `kustomize` patch will mainly enable [sharding](https://fluxcd.io/flux/installation/configuration/sharding/) (not that I really needed it, considering how small my cluster is, but  I wanted to have a quick look at it).
+The `kustomize` patch will mainly enable [sharding](https://fluxcd.io/flux/installation/configuration/sharding/) (not that I really needed it, considering how small my cluster is, but I wanted to have a quick look at it).
 
 # Recap
 At this stage, Odyssey is ready to reconcile stuff. It now has:
