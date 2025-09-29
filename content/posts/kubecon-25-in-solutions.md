@@ -7,7 +7,7 @@ slug: 'kubecon-in-25-ctf'
 ---
 
 # Intro
-This is my solution write-up for the KubeCon India 2025 Kubernetes CTF. The KubeCon CTF has been managed by the team at ControlPlane for several years now, and for this year's event in India, I was responsible for its design and implementation.
+This is my solution write-up for the [KubeCon India 2025 Kubernetes CTF](https://controlplaneio.github.io/kubecon-in-2025-ctf/). The KubeCon CTF has been hosted by ControlPlane for several years now, and for this year's event in India, I was responsible for its design and implementation.
 
 While I wasn't able to attend the event in person, I enjoyed following the scoreboard remotely as people made their way through the challenge. I also want to thank everyone who left positive feedback, especially those who spent a significant amount of time working through the problems. It was good to see the scenarios were well-received.
 
@@ -565,4 +565,4 @@ root@jumphost:~# curl -k https://api.cluster-maintenance/logs
 
 Finally, I want to thank the team who helped bring this CTF to life. Thank you to Mario and Aiman for being on the ground in India to run the event, and to Gabriela, Tom, and Sam for their essential help in testing the scenarios beforehand.
 
-Stay tuned for the KubeCon US CTF event!
+Stay tuned for the [KubeCon US](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/) CTF event!
